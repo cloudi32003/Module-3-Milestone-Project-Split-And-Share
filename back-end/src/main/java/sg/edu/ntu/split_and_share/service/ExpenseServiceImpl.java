@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import sg.edu.ntu.split_and_share.entity.Dashboard;
 import sg.edu.ntu.split_and_share.entity.Expense;
@@ -14,11 +15,12 @@ import sg.edu.ntu.split_and_share.repository.ExpenseRepository;
 
 import jakarta.transaction.Transactional;
 
+@Service
 public class ExpenseServiceImpl implements ExpenseService {
 
   private ExpenseRepository expenseRepository;
   private DashboardRepository dashboardRepository;
-  private static final Logger logger = LoggerFactory.getLogger(ExpenseService.class);
+  private static final Logger logger = LoggerFactory.getLogger(ExpenseServiceImpl.class);
 
   public ExpenseServiceImpl(ExpenseRepository expenseRepository, DashboardRepository dashboardRepository) {
     this.expenseRepository = expenseRepository;

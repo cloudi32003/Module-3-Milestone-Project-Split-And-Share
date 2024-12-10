@@ -8,12 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -36,4 +32,37 @@ public class GroupMember {
   @ManyToOne
   @JoinColumn(name = "dashboard_username", nullable = false, referencedColumnName = "username")
   private Dashboard dashboard;
+
+  public Long getId() {
+    return this.id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getMemberName() {
+    return this.memberName;
+  }
+
+  public void setMemberName(String memberName) {
+    this.memberName = memberName;
+  }
+
+  public Double getBalance() {
+    return this.balance;
+  }
+
+  public void setBalance(Double balance) {
+    this.balance = balance;
+  }
+
+  public Dashboard getDashboard() {
+    return this.dashboard;
+  }
+
+  public void setDashboard(Dashboard dashboard) {
+    this.dashboard = dashboard;
+  }
+
 }

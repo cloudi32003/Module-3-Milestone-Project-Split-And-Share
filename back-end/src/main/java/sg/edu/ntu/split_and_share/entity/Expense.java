@@ -13,12 +13,8 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -53,5 +49,61 @@ public class Expense {
    * unlike List, there is no order required, which means user can enter names in
    * any order and it will work with no issue.
    */
+
+  public Long getId() {
+    return this.id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getType() {
+    return this.type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public Double getAmount() {
+    return this.amount;
+  }
+
+  public void setAmount(Double amount) {
+    this.amount = amount;
+  }
+
+  public String getDescription() {
+    return this.description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public String getPaidBy() {
+    return this.paidBy;
+  }
+
+  public void setPaidBy(String paidBy) {
+    this.paidBy = paidBy;
+  }
+
+  public Dashboard getDashboard() {
+    return this.dashboard;
+  }
+
+  public void setDashboard(Dashboard dashboard) {
+    this.dashboard = dashboard;
+  }
+
+  public Set<GroupMember> getSharedBy() {
+    return this.sharedBy;
+  }
+
+  public void setSharedBy(Set<GroupMember> sharedBy) {
+    this.sharedBy = sharedBy;
+  }
 
 }
