@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import sg.edu.ntu.split_and_share.entity.Expense;
 import sg.edu.ntu.split_and_share.service.ExpenseService;
 
@@ -29,7 +30,7 @@ public class ExpenseController {
   // Create a new expense
   // http://localhost:8080/api/expense
   @PostMapping("")
-  public ResponseEntity<Expense> createExpense(@RequestBody Expense expense) {
+  public ResponseEntity<Expense> createExpense(@Valid @RequestBody Expense expense) {
     Expense createdExpense = expenseService.addExpense(expense);
     return new ResponseEntity<>(createdExpense, HttpStatus.CREATED);
   }
@@ -53,7 +54,7 @@ public class ExpenseController {
   // Edit an expense
   // http://localhost:8080/api/expense/{id}
   @PutMapping("/{id}")
-  public ResponseEntity<Expense> updateExpense(@PathVariable Long id, @RequestBody Expense newDetails) {
+  public ResponseEntity<Expense> updateExpense(@PathVariable Long id, @Valid @RequestBody Expense newDetails) {
     Expense updatedExpense = expenseService.editExpense(id, newDetails);
     return new ResponseEntity<>(updatedExpense, HttpStatus.OK);
   }
