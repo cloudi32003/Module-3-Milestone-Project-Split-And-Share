@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import sg.edu.ntu.split_and_share.service.GroupMemberService;
 
 @RestController
@@ -27,7 +28,7 @@ public class GroupMemberController {
   // Add group member(s) to user's dashboard
   // http://localhost:8080/api/group-members/add
   @PostMapping("/add")
-  public ResponseEntity<List<String>> addGroupMembers(@RequestBody List<String> groupMemberList) {
+  public ResponseEntity<List<String>> addGroupMembers(@Valid @RequestBody List<String> groupMemberList) {
     return new ResponseEntity<>(groupMemberService.addGroupMembers(groupMemberList), HttpStatus.CREATED);
   }
 
