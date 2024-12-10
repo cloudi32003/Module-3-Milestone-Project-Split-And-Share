@@ -22,7 +22,7 @@ import jakarta.transaction.Transactional;
 public class DashboardServiceImpl implements DashboardService {
 
   private DashboardRepository dashboardRepository;
-  private static final Logger logger = LoggerFactory.getLogger(DashboardService.class);
+  private static final Logger logger = LoggerFactory.getLogger(DashboardServiceImpl.class);
 
   public DashboardServiceImpl(DashboardRepository dashboardRepository) {
     this.dashboardRepository = dashboardRepository;

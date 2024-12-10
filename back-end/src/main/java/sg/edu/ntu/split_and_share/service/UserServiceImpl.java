@@ -22,7 +22,7 @@ import jakarta.transaction.Transactional;
 public class UserServiceImpl implements UserService {
 
   private UserRepository userRepository;
-  private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+  private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
   // Constructor injection
   public UserServiceImpl(UserRepository userRepository) {
