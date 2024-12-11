@@ -26,25 +26,26 @@ public class GroupMemberController {
   }
 
   // Add group member(s) to user's dashboard
-  // http://localhost:8080/api/group-members/add
-  @PostMapping("/add")
-  public ResponseEntity<List<String>> addGroupMembers(@Valid @RequestBody List<String> groupMemberList) {
-    return new ResponseEntity<>(groupMemberService.addGroupMembers(groupMemberList), HttpStatus.CREATED);
+  // http://localhost:8080/api/group-members/add/{username}
+  @PostMapping("/add/{username}")
+  public ResponseEntity<List<String>> addGroupMembers(@PathVariable String username,
+      @Valid @RequestBody List<String> groupMemberList) {
+    return new ResponseEntity<>(groupMemberService.addGroupMembers(groupMemberList, username), HttpStatus.CREATED);
   }
 
   // Remove group member(s) from user's dashboard
-  // http://localhost:8080/api/group-members/remove/{member_name}
-  @DeleteMapping("/remove/{member_name}")
-  public ResponseEntity<HttpStatus> removeGroupMember(@PathVariable String memberName) {
-    groupMemberService.removeGroupMember(memberName);
+  // http://localhost:8080/api/group-members/remove/{username}/{member_name}
+  @DeleteMapping("/remove/{username}/{member_name}")
+  public ResponseEntity<HttpStatus> removeGroupMember(@PathVariable String username, @PathVariable String memberName) {
+    groupMemberService.removeGroupMember(memberName, username);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
   // Get all group members
-  // http://localhost:8080/api/group-members/list
-  @GetMapping("/list")
-  public ResponseEntity<List<String>> getAllGroupMembers() {
-    return new ResponseEntity<>(groupMemberService.getAllGroupMembers(), HttpStatus.OK);
+  // http://localhost:8080/api/group-members/list/{username}
+  @GetMapping("/list/{username}")
+  public ResponseEntity<List<String>> getAllGroupMembers(@PathVariable String username) {
+    return new ResponseEntity<>(groupMemberService.getAllGroupMembers(username), HttpStatus.OK);
   }
 
 }

@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface GroupMemberService {
 
-  List<String> addGroupMembers(List<String> groupMemberList);
+  List<String> addGroupMembers(List<String> groupMemberList, String username);
 
-  void removeGroupMember(String memberName);
+  void removeGroupMember(String memberName, String username);
 
-  List<String> getAllGroupMembers();
+  List<String> getAllGroupMembers(String username);
 }

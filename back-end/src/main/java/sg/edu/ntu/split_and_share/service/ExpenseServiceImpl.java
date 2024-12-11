@@ -30,9 +30,9 @@ public class ExpenseServiceImpl implements ExpenseService {
   // Create new expense
   @Transactional
   @Override
-  public Expense addExpense(Expense expense) {
+  public Expense addExpense(Expense expense, String username) {
     // Fetch the dashboard
-    Dashboard dashboard = dashboardRepository.findAll().stream().findFirst()
+    Dashboard dashboard = dashboardRepository.findByUser_Username(username)
         .orElseThrow(() -> {
           logger.error("No dashboard found in the database");
           return new DashboardNotFoundException();

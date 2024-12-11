@@ -2,6 +2,9 @@ package sg.edu.ntu.split_and_share.entity;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,10 +40,11 @@ public class Expense {
   private String paidBy;
 
   @ManyToOne
-  @JoinColumn(name = "dashboard_id")
+  @JsonIgnoreProperties("expenses")
+  @JoinColumn(name = "dashboard_username", nullable = false)
   private Dashboard dashboard;
 
-  @ManyToMany
+  @ManyToMany(cascade = CascadeType.ALL)
   @JoinTable(name = "expense_group_members", joinColumns = @JoinColumn(name = "expense_id"), inverseJoinColumns = @JoinColumn(name = "group_member_id"))
   private Set<GroupMember> sharedBy;
   /*

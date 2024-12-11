@@ -33,7 +33,7 @@ public class DashboardServiceImpl implements DashboardService {
   public double calculateTotalSum(String username) {
     logger.info("Calculating total sum of expenses for username: {}", username);
     // Fetch the dashboard by username
-    Dashboard dashboard = dashboardRepository.findByUsername(username)
+    Dashboard dashboard = dashboardRepository.findByUser_Username(username)
         .orElseThrow(() -> {
           logger.error("Dashboard not found for user: {}", username);
           return new DashboardNotFoundException();
@@ -53,7 +53,7 @@ public class DashboardServiceImpl implements DashboardService {
   public Map<String, Double> sumExpensesByType(String username) {
     logger.info("Calculating total sum of each expense type for username: {}", username);
     // Fetch the dashboard
-    Dashboard dashboard = dashboardRepository.findByUsername(username)
+    Dashboard dashboard = dashboardRepository.findByUser_Username(username)
         .orElseThrow(() -> {
           logger.error("Dashboard not found for username: {}", username);
           return new DashboardNotFoundException();
@@ -73,7 +73,7 @@ public class DashboardServiceImpl implements DashboardService {
   public Map<String, Long> countExpensesByType(String username) {
     logger.info("Counting expenses by type for username: {}", username);
     // Fetch the dashboard
-    Dashboard dashboard = dashboardRepository.findByUsername(username)
+    Dashboard dashboard = dashboardRepository.findByUser_Username(username)
         .orElseThrow(() -> {
           logger.error("Dashboard not found for username: {}", username);
           return new DashboardNotFoundException();
@@ -91,7 +91,7 @@ public class DashboardServiceImpl implements DashboardService {
   @Override
   public long countTotalNumberOfExpenses(String username) {
     logger.info("Counting total number of expenses for username: {}", username);
-    Dashboard dashboard = dashboardRepository.findByUsername(username)
+    Dashboard dashboard = dashboardRepository.findByUser_Username(username)
         .orElseThrow(() -> {
           logger.error("Dashboard not found for username: {}", username);
           return new DashboardNotFoundException();
@@ -108,7 +108,7 @@ public class DashboardServiceImpl implements DashboardService {
   public Map<String, Double> calculateNetBalances(String username) {
     logger.info("Calculating net balances for username: {}", username);
     // Fetch the dashboard
-    Dashboard dashboard = dashboardRepository.findByUsername(username)
+    Dashboard dashboard = dashboardRepository.findByUser_Username(username)
         .orElseThrow(() -> {
           logger.error("Dashboard not found for username: {}", username);
           return new DashboardNotFoundException();
@@ -143,7 +143,7 @@ public class DashboardServiceImpl implements DashboardService {
   @Override
   public List<Expense> getAllIndividualExpenses(String username) {
     logger.info("Fetching all individual expenses for username: {}", username);
-    Dashboard dashboard = dashboardRepository.findByUsername(username)
+    Dashboard dashboard = dashboardRepository.findByUser_Username(username)
         .orElseThrow(() -> {
           logger.error("Dashboard not found for username: {}", username);
           return new DashboardNotFoundException();
@@ -159,7 +159,7 @@ public class DashboardServiceImpl implements DashboardService {
   @Override
   public void resetDashboard(String username) {
     logger.info("Resetting dashboard for username: {}", username);
-    Dashboard dashboard = dashboardRepository.findByUsername(username)
+    Dashboard dashboard = dashboardRepository.findByUser_Username(username)
         .orElseThrow(() -> {
           logger.error("Dashboard not found for username: {}", username);
           return new DashboardNotFoundException();
