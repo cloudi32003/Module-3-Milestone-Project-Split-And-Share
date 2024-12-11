@@ -34,8 +34,8 @@ public class GroupMemberController {
   }
 
   // Remove group member(s) from user's dashboard
-  // http://localhost:8080/api/group-members/remove/{username}/{member_name}
-  @DeleteMapping("/remove/{username}/{member_name}")
+  // http://localhost:8080/api/group-members/remove/{username}/{memberName}
+  @DeleteMapping("/remove/{username}/{memberName}")
   public ResponseEntity<HttpStatus> removeGroupMember(@PathVariable String username, @PathVariable String memberName) {
     groupMemberService.removeGroupMember(memberName, username);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -7,9 +7,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -21,12 +22,16 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "dashboard")
 public class Dashboard {
+  // @Id
+  // private String username;
+
   @Id
-  private String username;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
   @OneToOne
-  @MapsId
-  @JoinColumn(name = "username", nullable = false)
+  // @MapsId
+  @JoinColumn(name = "user_id", nullable = false)
   @JsonIgnoreProperties("dashboard")
   private User user;
 
@@ -39,12 +44,12 @@ public class Dashboard {
   @OneToMany(mappedBy = "dashboard", cascade = CascadeType.ALL)
   private List<GroupMember> groupMembers;
 
-  public String getName() {
-    return this.name;
+  public Long getId() {
+    return this.id;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public User getUser() {
@@ -53,6 +58,14 @@ public class Dashboard {
 
   public void setUser(User user) {
     this.user = user;
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public List<Expense> getExpenses() {

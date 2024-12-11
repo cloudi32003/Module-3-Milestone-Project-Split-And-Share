@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import sg.edu.ntu.split_and_share.entity.Dashboard;
 import sg.edu.ntu.split_and_share.entity.GroupMember;
+import sg.edu.ntu.split_and_share.exception.DashboardNotFoundException;
 import sg.edu.ntu.split_and_share.exception.GroupMemberNotFoundException;
 import sg.edu.ntu.split_and_share.exception.UserNotFoundException;
 import sg.edu.ntu.split_and_share.repository.DashboardRepository;
@@ -39,7 +40,7 @@ public class GroupMemberServiceImpl implements GroupMemberService {
     Dashboard dashboard = dashboardRepository.findByUser_Username(username)
         .orElseThrow(() -> {
           logger.error("No dashboard found in the database");
-          return new UserNotFoundException();
+          return new DashboardNotFoundException();
         });
 
     // Save each group member using a for loop
@@ -69,8 +70,8 @@ public class GroupMemberServiceImpl implements GroupMemberService {
         });
 
     // Find the group member in the dashboard
-    GroupMember groupMember = groupMemberRepository.findByDashboard_UsernameAndMemberName(
-        dashboard.getName(), memberName).orElseThrow(() -> {
+    GroupMember groupMember = groupMemberRepository.findByDashboard_IdAndMemberName(
+        dashboard.getId(), memberName).orElseThrow(() -> {
           logger.error("Group member '{}' not found in the dashboard", memberName);
           return new GroupMemberNotFoundException();
         });
@@ -98,7 +99,7 @@ public class GroupMemberServiceImpl implements GroupMemberService {
           return new UserNotFoundException();
         });
 
-    List<GroupMember> members = groupMemberRepository.findByDashboard_Username(dashboard.getName());
+    List<GroupMember> members = groupMemberRepository.findByDashboard_Id(dashboard.getId());
     logger.info("Found {} members in the dashboard", members.size());
 
     return members.stream().map(GroupMember::getMemberName).collect(Collectors.toList());
