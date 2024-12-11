@@ -36,9 +36,8 @@ public class User {
   @NotBlank(message = "Name is mandatory")
   private String name;
 
-  @OneToOne(cascade = CascadeType.ALL) // Cascade the relationship to Dashboard
+  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
   @JsonIgnoreProperties("user")
-  @JoinColumn(name = "username", nullable = false) // This makes User the owner of the relationship
   private Dashboard dashboard;
 
   public String getUsername() {
