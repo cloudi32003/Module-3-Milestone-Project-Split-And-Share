@@ -32,11 +32,11 @@ public class GroupMemberServiceImpl implements GroupMemberService {
   // Create group member(s)
   @Transactional
   @Override
-  public List<String> addGroupMembers(List<String> groupMemberList) {
+  public List<String> addGroupMembers(List<String> groupMemberList, String username) {
     logger.info("Attempting to add group members to the active dashboard");
 
     // Validate existence of a dashboard
-    Dashboard dashboard = dashboardRepository.findAll().stream().findFirst()
+    Dashboard dashboard = dashboardRepository.findByUser_Username(username)
         .orElseThrow(() -> {
           logger.error("No dashboard found in the database");
           return new UserNotFoundException();
@@ -50,7 +50,7 @@ public class GroupMemberServiceImpl implements GroupMemberService {
       member.setDashboard(dashboard);
 
       groupMemberRepository.save(member);
-      logger.info("Added member '{}' successfully to the dashboard '{}'", groupMember, dashboard.getUsername());
+      logger.info("Added member '{}' successfully to the dashboard '{}'", groupMember, dashboard.getName());
     }
 
     return groupMemberList;
@@ -58,11 +58,11 @@ public class GroupMemberServiceImpl implements GroupMemberService {
 
   // Delete group member
   @Override
-  public void removeGroupMember(String memberName) {
+  public void removeGroupMember(String memberName, String username) {
     logger.info("Attempting to remove group member '{}'", memberName);
 
     // Validate existence of a dashboard
-    Dashboard dashboard = dashboardRepository.findAll().stream().findFirst()
+    Dashboard dashboard = dashboardRepository.findByUser_Username(username)
         .orElseThrow(() -> {
           logger.error("No dashboard found in the database");
           return new UserNotFoundException();
@@ -70,7 +70,7 @@ public class GroupMemberServiceImpl implements GroupMemberService {
 
     // Find the group member in the dashboard
     GroupMember groupMember = groupMemberRepository.findByDashboard_UsernameAndMemberName(
-        dashboard.getUsername(), memberName).orElseThrow(() -> {
+        dashboard.getName(), memberName).orElseThrow(() -> {
           logger.error("Group member '{}' not found in the dashboard", memberName);
           return new GroupMemberNotFoundException();
         });
@@ -83,22 +83,22 @@ public class GroupMemberServiceImpl implements GroupMemberService {
 
     // If validation passes, delete the member
     groupMemberRepository.delete(groupMember);
-    logger.info("Group member '{}' removed successfully from the dashboard '{}'", memberName, dashboard.getUsername());
+    logger.info("Group member '{}' removed successfully from the dashboard '{}'", memberName, dashboard.getName());
   }
 
   // List all group members
   @Override
-  public List<String> getAllGroupMembers() {
+  public List<String> getAllGroupMembers(String username) {
     logger.info("Fetching all group members");
 
     // Validate existence of a dashboard
-    Dashboard dashboard = dashboardRepository.findAll().stream().findFirst()
+    Dashboard dashboard = dashboardRepository.findByUser_Username(username)
         .orElseThrow(() -> {
           logger.error("No dashboard found in the database");
           return new UserNotFoundException();
         });
 
-    List<GroupMember> members = groupMemberRepository.findByDashboard_Username(dashboard.getUsername());
+    List<GroupMember> members = groupMemberRepository.findByDashboard_Username(dashboard.getName());
     logger.info("Found {} members in the dashboard", members.size());
 
     return members.stream().map(GroupMember::getMemberName).collect(Collectors.toList());

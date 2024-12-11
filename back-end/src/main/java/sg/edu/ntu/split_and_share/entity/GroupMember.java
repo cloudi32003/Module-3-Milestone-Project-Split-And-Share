@@ -1,11 +1,16 @@
 package sg.edu.ntu.split_and_share.entity;
 
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -30,8 +35,12 @@ public class GroupMember {
   private Double balance = 0.0;
 
   @ManyToOne
-  @JoinColumn(name = "dashboard_username", nullable = false, referencedColumnName = "username")
+  @JsonIgnoreProperties("groupMembers")
+  @JoinColumn(name = "dashboard_username", nullable = false)
   private Dashboard dashboard;
+
+  @ManyToMany(mappedBy = "sharedBy") // Bidirectional mapping
+  private Set<Expense> expenses;
 
   public Long getId() {
     return this.id;

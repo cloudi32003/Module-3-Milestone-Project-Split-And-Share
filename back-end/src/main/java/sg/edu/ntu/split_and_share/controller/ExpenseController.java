@@ -28,10 +28,10 @@ public class ExpenseController {
   }
 
   // Create a new expense
-  // http://localhost:8080/api/expense
-  @PostMapping("")
-  public ResponseEntity<Expense> createExpense(@Valid @RequestBody Expense expense) {
-    Expense createdExpense = expenseService.addExpense(expense);
+  // http://localhost:8080/api/expense/{username}/add
+  @PostMapping("/{username}/add")
+  public ResponseEntity<Expense> createExpense(@PathVariable String username, @Valid @RequestBody Expense expense) {
+    Expense createdExpense = expenseService.addExpense(expense, username);
     return new ResponseEntity<>(createdExpense, HttpStatus.CREATED);
   }
 

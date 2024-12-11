@@ -7,6 +7,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -35,8 +36,9 @@ public class User {
   @NotBlank(message = "Name is mandatory")
   private String name;
 
-  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+  @OneToOne(cascade = CascadeType.ALL) // Cascade the relationship to Dashboard
   @JsonIgnoreProperties("user")
+  @JoinColumn(name = "username", nullable = false) // This makes User the owner of the relationship
   private Dashboard dashboard;
 
   public String getUsername() {

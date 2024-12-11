@@ -8,7 +8,6 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -21,30 +20,18 @@ import lombok.NoArgsConstructor;
 @Table(name = "dashboard")
 public class Dashboard {
   @Id
-  @Column(name = "username")
-  private String username;
+  @OneToOne(mappedBy = "dashboard")
+  @JsonIgnoreProperties("dashboard")
+  private User user;
 
   @Column(name = "name", nullable = false)
   private String name;
-
-  @OneToOne
-  @JsonIgnoreProperties("dashboard")
-  @JoinColumn(name = "username", nullable = false)
-  private User user;
 
   @OneToMany(mappedBy = "dashboard", cascade = CascadeType.ALL)
   private List<Expense> expenses;
 
   @OneToMany(mappedBy = "dashboard", cascade = CascadeType.ALL)
   private List<GroupMember> groupMembers;
-
-  public String getUsername() {
-    return this.username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
 
   public String getName() {
     return this.name;

@@ -6,7 +6,7 @@ import sg.edu.ntu.split_and_share.entity.Expense;
 
 public interface ExpenseService {
 
-  Expense addExpense(Expense expense);
+  Expense addExpense(Expense expense, String username);
 
   Expense editExpense(Long id, Expense newDetails);
 

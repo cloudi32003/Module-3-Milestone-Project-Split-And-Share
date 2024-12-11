@@ -33,16 +33,20 @@ public class UserServiceImpl implements UserService {
   @Override
   public User createUser(User user) {
     logger.info("Attempting to create user with username: {}", user.getUsername());
+    // Check if the username already exists
     if (userRepository.findByUsername(user.getUsername()).isPresent()) {
       logger.error("Username {} is already taken", user.getUsername());
       throw new UsernameIsTakenException();
     }
 
-    // Initialize dashboard and set up relationship
+    // Initialize the dashboard and set up the relationship
     Dashboard dashboard = new Dashboard();
     dashboard.setName(user.getName() + "'s Dashboard");
     logger.info("Dashboard '{}' initialized for user '{}'", dashboard.getName(), user.getUsername());
-    user.setDashboard(dashboard);
+
+    // Set the user in the dashboard and associate the dashboard with the user
+    dashboard.setUser(user); // This establishes the relationship from Dashboard to User
+    user.setDashboard(dashboard); // This sets the dashboard in the User entity
 
     // Save user (cascade will save dashboard automatically)
     logger.info("Saving user and initializing dashboard");
