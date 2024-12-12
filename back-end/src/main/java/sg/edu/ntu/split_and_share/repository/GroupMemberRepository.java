@@ -9,10 +9,10 @@ import sg.edu.ntu.split_and_share.entity.GroupMember;
 
 public interface GroupMemberRepository extends JpaRepository<GroupMember, Long> {
 
-  // Find members from the dashboard by username & memberName
-  Optional<GroupMember> findByDashboard_UsernameAndMemberName(String username, String memberName);
+  // Find members from the dashboard by dashboard ID and memberName
+  Optional<GroupMember> findByDashboard_IdAndMemberName(Long dashboardId, String memberName);
 
-  // Find all members that belong to a given user's dashboard
-  List<GroupMember> findByDashboard_Username(String username);
+  // Find all members that belong to a given dashboard ID
+  List<GroupMember> findByDashboard_Id(Long dashboardId);
 
 }
