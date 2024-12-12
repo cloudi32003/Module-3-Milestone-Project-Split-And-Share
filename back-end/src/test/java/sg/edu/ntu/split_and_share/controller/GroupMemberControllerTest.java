@@ -1,9 +1,9 @@
 package sg.edu.ntu.split_and_share.controller;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-// import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import sg.edu.ntu.split_and_share.entity.GroupMember;
-// import sg.edu.ntu.split_and_share.repository.GroupMemberRepository;
+import sg.edu.ntu.split_and_share.repository.GroupMemberRepository;
 
 @WebMvcTest(GroupMemberController.class)
 public class GroupMemberControllerTest {
@@ -28,6 +28,8 @@ public class GroupMemberControllerTest {
 	@Autowired
 	private ObjectMapper objectMapper;
 
+	@Mock
+	private GroupMemberRepository GroupMemberRepository;
 
 	// Add code here
 	@Test
