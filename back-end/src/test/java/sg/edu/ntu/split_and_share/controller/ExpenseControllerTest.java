@@ -3,7 +3,7 @@ package sg.edu.ntu.split_and_share.controller;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+// import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import sg.edu.ntu.split_and_share.entity.Expense;
-import sg.edu.ntu.split_and_share.repository.ExpenseRepository;
+// import sg.edu.ntu.split_and_share.repository.ExpenseRepository;
 
 @WebMvcTest(ExpenseController.class)
 public class ExpenseControllerTest {
@@ -27,9 +27,6 @@ public class ExpenseControllerTest {
 
 	@Autowired
 	private ObjectMapper objectMapper;
-
-	@MockBean
-	private ExpenseRepository mockRepo;
 
 	// Add code here
 	@Test
