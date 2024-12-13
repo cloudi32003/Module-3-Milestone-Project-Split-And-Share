@@ -5,15 +5,17 @@ import org.mockito.Mock;
 // import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+// import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+// import com.fasterxml.jackson.databind.ObjectMapper;
 import static org.mockito.Mockito.when;
 // import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 // import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,10 +39,26 @@ public class UserControllerTest {
 	private UserService userService;
 
 	@Autowired
-	private ObjectMapper objectMapper;
+	private ObjectMapper objectMapper; // Used to serialize Java objects to JSON
 
 	// @Mock
 	// private UserRepository UserRepository;
+
+	void shouldCreateUser() throws Exception {
+		// Create a User object
+		User user = new User(null, "jane_doe", "mypassword123", "Jane Joe", null);
+
+		// Mocking the service layer if needed (optional, depending on how the
+		// controller is implemented)
+		// given(userService.createUser(any(User.class))).willReturn(user);
+
+		// Perform the POST request to the /api/user endpoint
+		mockMvc.perform(post("/api/user")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(user))) // Serialize the user object to JSON
+				.andExpect(status().isCreated()) // Expect a 201 status code
+				.andExpect(jsonPath("$.name").value("jane_doe")); // Verify the name in the response
+	}
 
 	// @Test
 	// public void testCreateUser() throws Exception {
@@ -60,6 +78,11 @@ public class UserControllerTest {
 	// throw new RuntimeException(e);
 	// }
 	// }
+
+	private MockHttpServletRequestBuilder post(String string) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'post'");
+	}
 
 	@Test
 	public void testGetUserById() throws Exception {
